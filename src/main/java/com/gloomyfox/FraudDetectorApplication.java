@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FroudDetectorApplication {
+public class FraudDetectorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FroudDetectorApplication.class, args);
+		SpringApplication.run(FraudDetectorApplication.class, args);
 	}
 }

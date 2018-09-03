@@ -33,3 +33,25 @@ user_id: 정의 순으로 나열합니다.
 - BUILD: ./gradlew build
 - EXECUTE: java -jar build/libs/fraud-detector-1.0.0.jar
 - BUILD & EXECUTE: ./gradlew build && java -jar build/libs/fraud-detector-1.0.0.jar
+
+## Code Explanation
+- FraudDetectorController.java: Controller에 해당하는 코드입니다. RestController를 사용하였습니다.
+- UserLogDAO.java: User Log에 접근하기 위한 Data Access Object의 인터페이스입니다.
+- DummyUserLogDAO.java: Dummy로 구현한 UserLogDAO의 구현체입니다.
+- RuleADTO.java: RuleA에 필요한 데이터를 가지고 있는 Data Transfer Object입니다.
+- DetectFraudRequest.java: API Request에 해당하는 Object 입니다.
+- DetectFraudResponse.java: API Response에 해당하는 Object 입니다.
+- DummyData.java: DummyData를 저장하기 위해 사용한 Object 입니다. 내부는 DAO에 매핑되는 static Map Object들이 있습니다.
+- BaseRule.java: Rule들의 공통적인 동작과 속성을 정의해둔 추상 클래스입니다. 
+Rule Object 자체에 Rule의 동작을 위임하기 위해 이상 검출을 하는 추상 메소드가 포함되어 있고 Rule의 이름을 가지고 있습니다. 
+- RuleA.java: RuleA 조건을 검사하는 구현체입니다.
+- RuleB.java: RuleB 조건을 검사하는 구현체입니다.
+- RuleC.java: RuleC 조건을 검사하는 구현체입니다.
+- RuleEngine.java: Rule들을 등록하고 룰들에 대한 검사를 실행하는 Object 입니다. 
+세부적인 Rule의 동작 자체는 BaseRule을 상속한 Object들에게 맡깁니다.
+생성자에 검사할 Rule의 리스트를 넣어서 Rule의 추가/삭제를 쉽게하려고 했습니다.
+- FraudDetectService.java: Fraud Detection을 수행하는 서비스 인터페이스입니다. 
+인터페이스에는 userId를 입력으로하여 검출된 룰을 문자열로 반환하는 함수가 있습니다.
+- RuleEngineFraudDetectService.java: FraudDetectService를 RuleEngine 기반으로 구현한 구현체입니다.
+해당 구현체에서는 검출된 Rule들을 원하는 형태의 문자열로 바꿔주고, 잘못들어온 user_id를 걸러주는 역할을 구현했습니다.
+- FraudDetectorApplication.java: SpringBoot Application을 수행하기 위한 클래스입니다.
