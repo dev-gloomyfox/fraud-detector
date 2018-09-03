@@ -15,10 +15,6 @@ public class RuleC extends BaseRule {
 
     @Override
     public boolean isFraud(long userId) {
-        return verify(userLogDAO.selectRuleCCount(userId));
-    }
-
-    boolean verify(int count) {
-        return !(count < COUNT_BOUNDARY_VALUE);
+        return !(userLogDAO.selectRuleCCount(userId) < COUNT_BOUNDARY_VALUE);
     }
 }

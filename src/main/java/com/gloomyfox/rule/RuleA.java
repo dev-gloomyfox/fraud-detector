@@ -1,10 +1,11 @@
 package com.gloomyfox.rule;
 
 import com.gloomyfox.dao.UserLogDAO;
+import com.gloomyfox.domain.dto.RuleADTO;
 
 public class RuleA extends BaseRule {
 
-    private static final int LOAD_MONEY_BOUNDARY_VALUE = 1;
+    private static final int COUNT_BOUNDARY_VALUE = 1;
     private static final long BALANCE_BOUNDARY_VALUE = 1000;
 
     private UserLogDAO userLogDAO;
@@ -16,18 +17,8 @@ public class RuleA extends BaseRule {
 
     @Override
     public boolean isFraud(long userId) {
-        if(verifyLoadMoneyCount(userLogDAO.selectRuleALoadMoneyCount(userId))) {
-            return verifyBalance(userLogDAO.selectRuleABalance(userId));
-        } else {
-            return false;
-        }
-    }
+        RuleADTO dto = userLogDAO.selectRuleAData(userId);
 
-    boolean verifyLoadMoneyCount(long loadMoney) {
-        return !(loadMoney < LOAD_MONEY_BOUNDARY_VALUE);
-    }
-
-    boolean verifyBalance(long balance) {
-        return !(balance > BALANCE_BOUNDARY_VALUE);
+        return !(dto.getCount() < COUNT_BOUNDARY_VALUE) && !(dto.getBalance() > BALANCE_BOUNDARY_VALUE);
     }
 }

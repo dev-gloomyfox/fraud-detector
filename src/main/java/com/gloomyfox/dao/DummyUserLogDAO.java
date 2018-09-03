@@ -1,5 +1,6 @@
 package com.gloomyfox.dao;
 
+import com.gloomyfox.domain.dto.RuleADTO;
 import com.gloomyfox.dummy.DummyData;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
@@ -13,16 +14,10 @@ public class DummyUserLogDAO implements UserLogDAO {
         return DummyData.CREATED_USER_DUMMY.get(userId) != null;
    }
 
-    @Override
-    public int selectRuleALoadMoneyCount(long userId) {
-        return DummyData.RULE_A_LOAD_MONEY_DUMMY.get(userId) == null ?
-                0 : DummyData.RULE_A_LOAD_MONEY_DUMMY.get(userId);
-    }
-
-    @Override
-    public long selectRuleABalance(long userId) {
-        return DummyData.RULE_A_BALACE_DUMMY.get(userId) == null ?
-                0 : DummyData.RULE_A_BALACE_DUMMY.get(userId);
+   @Override
+    public RuleADTO selectRuleAData(long userId) {
+        return DummyData.RULE_A_DTO_DUMMY.get(userId) == null ?
+                new RuleADTO(0, 0) : DummyData.RULE_A_DTO_DUMMY.get(userId);
     }
 
     @Override
